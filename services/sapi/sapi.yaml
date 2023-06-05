@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sapi-deployment
+  labels:
+    app: sapi
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sapi
+  template:
+    metadata:
+      labels:
+        app: sapi
+    spec:
+      containers:
+      - name: sapi
+        image: vphoikka/demo-repo:sapi-meri3
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: regcred
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sapi-service
+spec:
+  type: NodePort
+  selector:
+    app: sapi
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30100
