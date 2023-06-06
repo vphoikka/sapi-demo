@@ -15,7 +15,7 @@ type Product struct {
 }
 
 func main() {
-	db, err := sql.Open("postgres", "host=postgresdb.default.svc.cluster.local user=pqgotest password=password dbname=pqgotest port=5432 sslmode=disable")
+	db, err := sql.Open("postgres", "host=postgresdb.default.svc.cluster.local user=sapi-user password=t%8!pD9J7;1~`ZKecag@6lEZrga=H=n)P4jy<K=& dbname=sapi-products port=5432 sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -55,7 +55,15 @@ func main() {
 				log.Println(err)
 				return
 			}
-			db.Exec("CREATE TABLE products")
+			_, err = db.Exec("CREATE TABLE IF NOT EXISTS products (id SERIAL PRIMARY KEY, name VARCHAR(255));")
+			if err != nil {
+                                http.Error(w, http.StatusText(500), 500)
+                                log.Println(err)
+                                return
+			}
+
+
+			//db.Exec("CREATE TABLE products")
 			_, err = db.Exec("INSERT INTO products (name) VALUES ($1)", p.Name)
 			if err != nil {
 				http.Error(w, http.StatusText(500), 500)
