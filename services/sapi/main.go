@@ -15,7 +15,7 @@ type Product struct {
 }
 
 func main() {
-	db, err := sql.Open("postgres", "host=postgresdb.default.svc.cluster.local user=sapi-user password=t%8!pD9J7;1~`ZKecag@6lEZrga=H=n)P4jy<K=& dbname=sapi-products port=5432 sslmode=disable")
+	db, err := sql.Open("postgres", "host=postgresdb.default.svc.cluster.local user=<db-user> password=<db-password> dbname=<db-name> port=<running-port> sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
