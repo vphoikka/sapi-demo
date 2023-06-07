@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: sapi
-        image: vphoikka/demo-repo:sapi-meri4
+        image: <image-name>
         ports:
         - containerPort: 8080
       imagePullSecrets:
