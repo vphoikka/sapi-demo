@@ -4,13 +4,13 @@ metadata:
   name: sapi-ingress
 spec:
   rules:
-    - host: localhost
+    - host: <example.com>
       http:
         paths:
           - pathType: Prefix
             path: /products
             backend:
               service:
-                name: sapi-service
+                name: sapi-loadbalancer-service
                 port:
                   number: 80
