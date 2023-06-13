@@ -1,0 +1,19 @@
+###Configure postgres-operator before launching the cluster. Guide here: https://github.com/zalando/postgres-operator/blob/master/docs/quickstart.md#deployment-options
+
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: sapi-minimal-cluster
+spec:
+  teamId: "sapi"
+  volume:
+    size: 8Gi
+  numberOfInstances: 3
+  users:
+    sapi-user:  # database owner
+    - superuser
+    - createdb
+  databases:
+    sapi-products: sapi-user  # dbname: owner
+  postgresql:
+    version: "15"
